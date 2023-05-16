@@ -1,0 +1,39 @@
+import pytest
+from fastapi.testclient import TestClient
+
+from main import app
+
+client = TestClient(app)
+
+def test_read_main():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Hello, World!"}
+
+def test_create_item():
+    item = {"name": "Test Item", "price": 9.99}
+    response = client.post("/items/", json=item)
+    assert response.status_code == 200
+    assert response.json() == item
+
+def test_read_item():
+    response = client.get("/items/1")
+    assert response.status_code == 200
+    assert response.json() == {"id": 1, "name": "Test Item", "price": 9.99}
+
+def test_read_all_items():
+    response = client.get("/items/")
+    assert response.status_code == 200
+    assert len(response.json()) >= 1
+
+def test_update_item():
+    item = {"name": "Updated Item", "price": 19.99}
+    response = client.put("/items/1", json=item)
+    assert response.status_code == 200
+    assert response.json() == {"id": 1, "name": "Updated Item", "price": 19.99}
+
+def test_delete_item():
+    response = client.delete("/items/1")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Item deleted"}
+
