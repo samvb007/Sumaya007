@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your source code from the repository
+                // Replace the repository URL and credentials as needed
+                select checkout from jenkins
+            }
+        }
+        stage('Build'){
+              steps {
+                      select git:Git
+                      batch windows cmd
+                     }
+         }
+ stage('test'){
+              steps {
+                      select git:Git
+                      echo "job tested successfully"                      
+                     }
+         }
+                 
