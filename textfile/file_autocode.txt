@@ -1,0 +1,16 @@
+LLM -> Large Language Model
+# you don't have access to the internet, it just works on the previous dataset given to it.
+
+langchain -> official documnetation
+
+
+import openai
+import os
+from langchain import PromptTemplate
+from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain.chains import SequntialChain
+
+linkedIn_post_template = """ """
+
+os.environ['OPENAI_API_KEY'] = 'your_key'
